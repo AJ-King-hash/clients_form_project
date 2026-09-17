@@ -33,8 +33,9 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import { dashboard } from '@/routes';
+import { dashboard} from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
+import Welcome from '@/pages/welcome'
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -50,8 +51,8 @@ const mainNavItems: NavItem[] = [
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: 'Home',
+        href: "/",
         icon: Folder,
     },
     {
