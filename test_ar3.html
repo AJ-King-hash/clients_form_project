@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" class="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <script>
+            (function() {
+                const appearance = 'system';
+
+                if (appearance === 'system') {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                    if (prefersDark) {
+                        document.documentElement.classList.add('dark');
+                    }
+                }
+            })();
+        </script>
+
+        
+        <style>
+            html {
+                background-color: oklch(1 0 0);
+            }
+
+            html.dark {
+                background-color: oklch(0.145 0 0);
+            }
+        </style>
+
+        <link rel="icon" href="/favicon.ico" sizes="any">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+        <link rel="preload" as="font" href="http://[::1]:5173/__laravel_vite_plugin__/fonts/d087fbcc9232f474.woff2" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" href="http://[::1]:5173/__laravel_vite_plugin__/fonts/717f53226061e72b.woff2" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" as="font" href="http://[::1]:5173/__laravel_vite_plugin__/fonts/fb62be2d41b1c0ce.woff2" type="font/woff2" crossorigin="anonymous" />
+<style>
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/d087fbcc9232f474.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/9622757b568ca7ac.woff") format("woff");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/717f53226061e72b.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/0f8da1e3bc965f43.woff") format("woff");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/fb62be2d41b1c0ce.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("http://[::1]:5173/__laravel_vite_plugin__/fonts/6dc8cdd9f8705d15.woff") format("woff");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+  --font-instrument-sans: "Instrument Sans";
+}
+
+.font-instrument-sans {
+  font-family: var(--font-instrument-sans);
+}
+</style>
+        <script type="module" >
+    import RefreshRuntime from 'http://[::1]:5173/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+</script>        <script type="module" src="http://[::1]:5173/@vite/client"></script><link rel="stylesheet" href="http://[::1]:5173/resources/css/app.css" /><script type="module" src="http://[::1]:5173/resources/js/app.tsx"></script><script type="module" src="http://[::1]:5173/resources/js/pages/assessment.tsx"></script>        <title data-inertia="">╪¬┘é╪▒┘è╪▒ ╪¬┘é┘è┘è┘à ╪º┘ä╪¡╪╢┘ê╪▒ ╪º┘ä╪▒┘é┘à┘è - Laravel</title>
+    <script id="browser-logger-active">
+(function() {
+    const ENDPOINT = 'http://localhost:8000/_boost/browser-logs';
+    const logQueue = [];
+    let flushTimeout = null;
+    const captureTypes = ["error","warning","info","log","debug","table"];
+
+    console.log('≡ƒöì Browser logger active (MCP server detected). Posting to: ' + ENDPOINT);
+
+    // Store original console methods
+    const originalConsole = {
+        log: console.log,
+        debug: console.debug,
+        info: console.info,
+        error: console.error,
+        warn: console.warn,
+        table: console.table
+    };
+
+    // Walk own enumerable keys so JSON.stringify cannot auto-invoke a proxy fake toJSON (e.g. Livewire's `$wire`) and fire a real request.
+    function toSafeValue(value, seen) {
+        if (value === null || typeof value !== 'object') {
+            return value;
+        }
+        if (value instanceof Error) {
+            return { name: value.name, message: value.message, stack: value.stack };
+        }
+        // Date has no own enumerable keys, so the walk below would collapse it to {}.
+        if (value instanceof Date) {
+            return value.toISOString();
+        }
+        if (seen.has(value)) {
+            return '[Circular]';
+        }
+        seen.add(value);
+        if (Array.isArray(value)) {
+            return value.map((item) => toSafeValue(item, seen));
+        }
+        const plain = {};
+        for (const key of Object.keys(value)) {
+            if (key === 'toJSON') continue;
+            try {
+                plain[key] = toSafeValue(value[key], seen);
+            } catch (e) {
+                plain[key] = '[Unreadable]';
+            }
+        }
+        return plain;
+    }
+
+    // Helper to safely stringify values
+    function safeStringify(obj) {
+        return JSON.stringify(toSafeValue(obj, new WeakSet()));
+    }
+
+    // Normalize log type for consistency (e.g., 'warn' to 'warning')
+    function normalizeType(type) {
+        return type === 'warn' ? 'warning' : type;
+    }
+
+    // Determine if a log type should be captured based on configured levels
+    function shouldCapture(type) {
+        return captureTypes.includes(normalizeType(type));
+    }
+
+    // Batch and send logs
+    function flushLogs() {
+        if (logQueue.length === 0) return;
+
+        const batch = logQueue.splice(0, logQueue.length);
+
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ logs: batch })
+        }).catch(err => {
+            // Silently fail to avoid infinite loops
+            originalConsole.error('Failed to send logs:', err);
+        });
+    }
+
+    // Debounced flush (100ms)
+    function scheduleFlush() {
+        if (flushTimeout) clearTimeout(flushTimeout);
+        flushTimeout = setTimeout(flushLogs, 100);
+    }
+
+    // Intercept console methods
+    ['log', 'debug', 'info', 'error', 'warn', 'table'].forEach(method => {
+        console[method] = function(...args) {
+            // Call original method
+            originalConsole[method].apply(console, args);
+
+            // Capture log data
+            try {
+                if (!shouldCapture(method)) {
+                    return;
+                }
+
+                logQueue.push({
+                    type: method,
+                    timestamp: new Date().toISOString(),
+                    data: args.map(arg => {
+                        try {
+                            return typeof arg === 'object' ? JSON.parse(safeStringify(arg)) : arg;
+                        } catch (e) {
+                            return String(arg);
+                        }
+                    }),
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            } catch (e) {
+                // Fail silently
+            }
+        };
+    });
+
+    // Global error handlers for uncaught errors
+    const originalOnError = window.onerror;
+    window.onerror = function boostErrorHandler(errorMsg, url, lineNumber, colNumber, error) {
+        try {
+            if (shouldCapture('error')) {
+                logQueue.push({
+                    type: 'uncaught_error',
+                    timestamp: new Date().toISOString(),
+                    data: [{
+                        message: errorMsg,
+                        filename: url,
+                        lineno: lineNumber,
+                        colno: colNumber,
+                        error: error ? {
+                            name: error.name,
+                            message: error.message,
+                            stack: error.stack
+                        } : null
+                    }],
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            }
+
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Call original handler if it exists
+        if (originalOnError && typeof originalOnError === 'function') {
+            return originalOnError(errorMsg, url, lineNumber, colNumber, error);
+        }
+
+        // Let the error continue to propagate
+        return false;
+    }
+    window.addEventListener('error', (event) => {
+        try {
+            if (!shouldCapture('error')) {
+                return false;
+            }
+
+            logQueue.push({
+                type: 'window_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: event.message,
+                    filename: event.filename,
+                    lineno: event.lineno,
+                    colno: event.colno,
+                    error: event.error ? {
+                        name: event.error.name,
+                        message: event.error.message,
+                        stack: event.error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the error continue to propagate
+        return false;
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+        try {
+            if (!shouldCapture('error')) {
+                return false;
+            }
+
+            logQueue.push({
+                type: 'error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: 'Unhandled Promise Rejection',
+                    reason: toSafeValue(event.reason, new WeakSet())
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the rejection continue to propagate
+        return false;
+    });
+
+    // Flush on page unload
+    window.addEventListener('beforeunload', () => {
+        if (logQueue.length > 0) {
+            navigator.sendBeacon(ENDPOINT, JSON.stringify({ logs: logQueue }));
+        }
+    });
+})();
+</script>
+</head>
+    <body class="font-sans antialiased">
+        <script data-page="app" type="application/json">{"component":"assessment","props":{"errors":{},"name":"Laravel","auth":{"user":null},"sidebarOpen":true,"categories":[{"id":1,"slug":"written-content","title":"Social Media Written Content & Strategy","description":"Evaluate your brand tone, copy effectiveness, and sales copy conversions.","questions":[{"id":1,"question_number":1,"text":"How often do you publish new social media posts?","is_goal_question":0,"options":[{"id":1,"color_tag":"red","score_weight":1,"text":"Rarely or never"},{"id":2,"color_tag":"yellow","score_weight":2,"text":"A few times a month"},{"id":3,"color_tag":"green","score_weight":3,"text":"Multiple times per week"},{"id":4,"color_tag":"blue","score_weight":2,"text":"Just started, testing what works"}]},{"id":2,"question_number":2,"text":"How well does your copy communicate the unique value of your offer?","is_goal_question":0,"options":[{"id":5,"color_tag":"red","score_weight":1,"text":"Unclear, competitors sound better"},{"id":6,"color_tag":"yellow","score_weight":2,"text":"Decent but could be sharper"},{"id":7,"color_tag":"green","score_weight":3,"text":" crystal clear USP"},{"id":8,"color_tag":"blue","score_weight":2,"text":"Still figuring out our angle"}]},{"id":3,"question_number":3,"text":"Do you have a defined brand voice and tone guide?","is_goal_question":0,"options":[{"id":9,"color_tag":"red","score_weight":1,"text":"No, everything is ad-hoc"},{"id":10,"color_tag":"yellow","score_weight":2,"text":"Informal guidelines exist"},{"id":11,"color_tag":"green","score_weight":3,"text":"Documented and consistently applied"},{"id":12,"color_tag":"blue","score_weight":2,"text":"Just started defining it"}]},{"id":4,"question_number":4,"text":"How often do you reuse and repurpose top-performing content?","is_goal_question":0,"options":[{"id":13,"color_tag":"red","score_weight":1,"text":"Rarely, always creating from scratch"},{"id":14,"color_tag":"yellow","score_weight":2,"text":"Sometimes, but inconsistently"},{"id":15,"color_tag":"green","score_weight":3,"text":"Systematically repurposed across channels"},{"id":16,"color_tag":"blue","score_weight":2,"text":"Not yet, still building library"}]},{"id":5,"question_number":5,"text":"How strong are your calls-to-action (CTAs) in your posts?","is_goal_question":0,"options":[{"id":17,"color_tag":"red","score_weight":1,"text":"Weak or missing CTAs"},{"id":18,"color_tag":"yellow","score_weight":2,"text":"Some CTAs, inconsistent results"},{"id":19,"color_tag":"green","score_weight":3,"text":"High-converting, action-driven CTAs"},{"id":20,"color_tag":"blue","score_weight":2,"text":"Just adding CTAs now"}]},{"id":6,"question_number":6,"text":"How do you analyze content performance and engagement?","is_goal_question":0,"options":[{"id":21,"color_tag":"red","score_weight":1,"text":"No systematic tracking"},{"id":22,"color_tag":"yellow","score_weight":2,"text":"Basic metrics, sporadic reviews"},{"id":23,"color_tag":"green","score_weight":3,"text":"Data-driven optimization cycle"},{"id":24,"color_tag":"blue","score_weight":2,"text":"Just started tracking basics"}]},{"id":7,"question_number":7,"text":"What is your primary business goal for social media content?","is_goal_question":1,"options":[{"id":25,"color_tag":"red","score_weight":0,"text":"Maximize conversion rates"},{"id":26,"color_tag":"yellow","score_weight":0,"text":"Establish premium authority"},{"id":27,"color_tag":"green","score_weight":0,"text":"Achieve consistent publishing"},{"id":28,"color_tag":"blue","score_weight":0,"text":"Completely delegate content operations"}]}]},{"id":2,"slug":"visual-execution","title":"Visual Design & Video Production","description":"Audit your visual identity, video reels editing quality, and brand consistency.","questions":[{"id":8,"question_number":1,"text":"How would you rate your current visual brand consistency?","is_goal_question":0,"options":[{"id":29,"color_tag":"red","score_weight":1,"text":"No consistent style or branding"},{"id":30,"color_tag":"yellow","score_weight":2,"text":"Basic colors but inconsistent application"},{"id":31,"color_tag":"green","score_weight":3,"text":"Strong cohesive visual identity"},{"id":32,"color_tag":"blue","score_weight":2,"text":"Just starting to define brand visuals"}]},{"id":9,"question_number":2,"text":"How would you rate your video editing quality and pacing?","is_goal_question":0,"options":[{"id":33,"color_tag":"red","score_weight":1,"text":"Basic edits, slow pacing"},{"id":34,"color_tag":"yellow","score_weight":2,"text":"Decent but could be more dynamic"},{"id":35,"color_tag":"green","score_weight":3,"text":"Professional, engaging, fast-paced"},{"id":36,"color_tag":"blue","score_weight":2,"text":"Learning as I go"}]},{"id":10,"question_number":3,"text":"Do you have a consistent set of video templates and graphics assets?","is_goal_question":0,"options":[{"id":37,"color_tag":"red","score_weight":1,"text":"No, every video is unique"},{"id":38,"color_tag":"yellow","score_weight":2,"text":"Some reusable elements"},{"id":39,"color_tag":"green","score_weight":3,"text":"Full branded template library"},{"id":40,"color_tag":"blue","score_weight":2,"text":"Just starting to build assets"}]},{"id":11,"question_number":4,"text":"How well do your videos hook viewers in the first 3 seconds?","is_goal_question":0,"options":[{"id":41,"color_tag":"red","score_weight":1,"text":"Poor, high drop-off rate"},{"id":42,"color_tag":"yellow","score_weight":2,"text":"Average, some hooks work"},{"id":43,"color_tag":"green","score_weight":3,"text":"Strong hooks, high retention"},{"id":44,"color_tag":"blue","score_weight":2,"text":"Not tracking retention yet"}]},{"id":12,"question_number":5,"text":"How often do you publish video content?","is_goal_question":0,"options":[{"id":45,"color_tag":"red","score_weight":1,"text":"Rarely or never"},{"id":46,"color_tag":"yellow","score_weight":2,"text":"A few times a month"},{"id":47,"color_tag":"green","score_weight":3,"text":"Multiple times per week"},{"id":48,"color_tag":"blue","score_weight":2,"text":"Just started testing"}]},{"id":13,"question_number":6,"text":"How do you track video performance and audience retention?","is_goal_question":0,"options":[{"id":49,"color_tag":"red","score_weight":1,"text":"No tracking at all"},{"id":50,"color_tag":"yellow","score_weight":2,"text":"Basic views and likes only"},{"id":51,"color_tag":"green","score_weight":3,"text":"Full analytics with retention heatmaps"},{"id":52,"color_tag":"blue","score_weight":2,"text":"Just starting to look at metrics"}]},{"id":14,"question_number":7,"text":"What is your primary visual content goal?","is_goal_question":1,"options":[{"id":53,"color_tag":"red","score_weight":0,"text":"Drive immediate conversions"},{"id":54,"color_tag":"yellow","score_weight":0,"text":"Look premium and authoritative"},{"id":55,"color_tag":"green","score_weight":0,"text":"Publish consistently without stress"},{"id":56,"color_tag":"blue","score_weight":0,"text":"Launch with a full visual system"}]}]},{"id":3,"slug":"seo-research","title":"SEO & Search Content Research","description":"Analyze organic search visibility, keyword targeting, and authority content.","questions":[{"id":15,"question_number":1,"text":"How does your website currently attract visitors?","is_goal_question":0,"options":[{"id":57,"color_tag":"red","score_weight":1,"text":"Almost entirely through paid ads"},{"id":58,"color_tag":"yellow","score_weight":2,"text":"Some organic traffic, mostly informational"},{"id":59,"color_tag":"green","score_weight":3,"text":"Strong organic search presence"},{"id":60,"color_tag":"blue","score_weight":2,"text":"Website just launched, no traffic yet"}]},{"id":16,"question_number":2,"text":"How well does your content target specific search keywords?","is_goal_question":0,"options":[{"id":61,"color_tag":"red","score_weight":1,"text":"No keyword strategy, random topics"},{"id":62,"color_tag":"yellow","score_weight":2,"text":"Some keywords, but not optimized"},{"id":63,"color_tag":"green","score_weight":3,"text":"Data-driven keyword targeting"},{"id":64,"color_tag":"blue","score_weight":2,"text":"Just started researching keywords"}]},{"id":17,"question_number":3,"text":"How would you rate your on-page SEO (titles, meta descriptions, headers)?","is_goal_question":0,"options":[{"id":65,"color_tag":"red","score_weight":1,"text":"Poor or missing on most pages"},{"id":66,"color_tag":"yellow","score_weight":2,"text":"Basic SEO, inconsistent"},{"id":67,"color_tag":"green","score_weight":3,"text":"Optimized on all key pages"},{"id":68,"color_tag":"blue","score_weight":2,"text":"Not yet implemented"}]},{"id":18,"question_number":4,"text":"How strong is your internal linking structure?","is_goal_question":0,"options":[{"id":69,"color_tag":"red","score_weight":1,"text":"No deliberate linking"},{"id":70,"color_tag":"yellow","score_weight":2,"text":"Some links, but not strategic"},{"id":71,"color_tag":"green","score_weight":3,"text":"Strong silo architecture"},{"id":72,"color_tag":"blue","score_weight":2,"text":"Just started linking articles"}]},{"id":19,"question_number":5,"text":"How do you track backlinks and domain authority?","is_goal_question":0,"options":[{"id":73,"color_tag":"red","score_weight":1,"text":"No backlink strategy at all"},{"id":74,"color_tag":"yellow","score_weight":2,"text":"Some organic links, untracked"},{"id":75,"color_tag":"green","score_weight":3,"text":"Active outreach and monitoring"},{"id":76,"color_tag":"blue","score_weight":2,"text":"Not focusing on links yet"}]},{"id":20,"question_number":6,"text":"How often do you publish new SEO-optimized content?","is_goal_question":0,"options":[{"id":77,"color_tag":"red","score_weight":1,"text":"Rarely or never"},{"id":78,"color_tag":"yellow","score_weight":2,"text":"A few times a month"},{"id":79,"color_tag":"green","score_weight":3,"text":"Multiple times per week"},{"id":80,"color_tag":"blue","score_weight":2,"text":"Just launched the blog"}]},{"id":21,"question_number":7,"text":"What is your primary SEO goal?","is_goal_question":1,"options":[{"id":81,"color_tag":"red","score_weight":0,"text":"Acquire leads without ad spend"},{"id":82,"color_tag":"yellow","score_weight":0,"text":"Establish corporate authority"},{"id":83,"color_tag":"green","score_weight":0,"text":"Turn blog into a knowledge hub"},{"id":84,"color_tag":"blue","score_weight":0,"text":"Reduce marketing overhead"}]}]},{"id":4,"slug":"web-development","title":"Web Design & Conversion Optimization (CRO)","description":"Evaluate website UX\/UI speed, mobile responsiveness, and checkout conversion rates.","questions":[{"id":22,"question_number":1,"text":"How would you describe your current website?","is_goal_question":0,"options":[{"id":85,"color_tag":"red","score_weight":1,"text":"Slow, not mobile-friendly, high bounce rate"},{"id":86,"color_tag":"yellow","score_weight":2,"text":"Functional but outdated design"},{"id":87,"color_tag":"green","score_weight":3,"text":"Modern, fast, responsive, converting well"},{"id":88,"color_tag":"blue","score_weight":2,"text":"Just built or about to launch"}]},{"id":23,"question_number":2,"text":"How fast does your website load on mobile devices?","is_goal_question":0,"options":[{"id":89,"color_tag":"red","score_weight":1,"text":"Over 4 seconds, high bounce rate"},{"id":90,"color_tag":"yellow","score_weight":2,"text":"3-4 seconds, average"},{"id":91,"color_tag":"green","score_weight":3,"text":"Under 2 seconds, excellent"},{"id":92,"color_tag":"blue","score_weight":2,"text":"Not yet tested or optimized"}]},{"id":24,"question_number":3,"text":"How intuitive is your website navigation and user flow?","is_goal_question":0,"options":[{"id":93,"color_tag":"red","score_weight":1,"text":"Confusing, users get lost"},{"id":94,"color_tag":"yellow","score_weight":2,"text":"Functional but not ideal"},{"id":95,"color_tag":"green","score_weight":3,"text":"Intuitive, users find what they need easily"},{"id":96,"color_tag":"blue","score_weight":2,"text":"Basic structure, still refining"}]},{"id":25,"question_number":4,"text":"How well does your website convert visitors into leads or sales?","is_goal_question":0,"options":[{"id":97,"color_tag":"red","score_weight":1,"text":"Poor conversion, high drop-offs"},{"id":98,"color_tag":"yellow","score_weight":2,"text":"Average, some conversions"},{"id":99,"color_tag":"green","score_weight":3,"text":"Strong conversion rate"},{"id":100,"color_tag":"blue","score_weight":2,"text":"No clear conversion tracking yet"}]},{"id":26,"question_number":5,"text":"Do you have analytics and pixel tracking properly configured?","is_goal_question":0,"options":[{"id":101,"color_tag":"red","score_weight":1,"text":"No tracking at all"},{"id":102,"color_tag":"yellow","score_weight":2,"text":"Basic tracking, incomplete events"},{"id":103,"color_tag":"green","score_weight":3,"text":"Full event tracking configured"},{"id":104,"color_tag":"blue","score_weight":2,"text":"Just installed basic analytics"}]},{"id":27,"question_number":6,"text":"How often do you update and maintain your website?","is_goal_question":0,"options":[{"id":105,"color_tag":"red","score_weight":1,"text":"Rarely, outdated content"},{"id":106,"color_tag":"yellow","score_weight":2,"text":"Occasional updates"},{"id":107,"color_tag":"green","score_weight":3,"text":"Regular updates and maintenance"},{"id":108,"color_tag":"blue","score_weight":2,"text":"Brand new, no updates needed yet"}]},{"id":28,"question_number":7,"text":"What is your primary website goal?","is_goal_question":1,"options":[{"id":109,"color_tag":"red","score_weight":0,"text":"Increase online sales immediately"},{"id":110,"color_tag":"yellow","score_weight":0,"text":"Position as an elite market player"},{"id":111,"color_tag":"green","score_weight":0,"text":"Automate customer orders"},{"id":112,"color_tag":"blue","score_weight":0,"text":"Easy-to-manage platform"}]}]}],"whatsappNumber":"","locale":"ar","translations":{"select_track":"╪º╪«╪¬╪▒ ┘à╪│╪º╪▒ ╪º┘ä╪¬┘é┘è┘è┘à","step":"╪«╪╖┘ê╪⌐","of":"┘à┘å","next":"╪º┘ä╪¬╪º┘ä┘è","back":"╪º┘ä╪│╪º╪¿┘é","your_answers":"╪ú╪¼╪¿ ╪╣┘å ╪º┘ä╪ú╪│╪ª┘ä╪⌐ 1-6","primary_goal":"┘à╪º ┘ç┘ê ╪º┘ä┘ç╪»┘ü ╪º┘ä╪ú╪│╪º╪│┘è ┘ä╪╣┘à┘ä┘â╪ƒ","quick_diagnosis":"╪º┘ä╪¬╪┤╪«┘è╪╡ ╪º┘ä╪│╪▒┘è╪╣","lead_capture_title":"╪º╪¡╪╡┘ä ╪╣┘ä┘ë ╪¬┘é╪▒┘è╪▒ ╪º┘ä╪¬┘é┘è┘è┘à ╪º┘ä┘â╪º┘à┘ä","lead_capture_subtitle":"╪ú╪»╪«┘ä ┘à╪╣┘ä┘ê┘à╪º╪¬┘â ┘ä╪¬┘ä┘é┘è ╪º┘ä╪¬╪¡┘ä┘è┘ä ╪º┘ä┘â╪º┘à┘ä.","name":"╪º┘ä╪º╪│┘à","phone":"╪º┘ä┘ç╪º╪¬┘ü \/ ┘ê╪º╪¬╪│╪º╪¿","business_name":"╪º╪│┘à ╪º┘ä╪┤╪▒┘â╪⌐","email":"╪º┘ä╪¿╪▒┘è╪» ╪º┘ä╪Ñ┘ä┘â╪¬╪▒┘ê┘å┘è (╪º╪«╪¬┘è╪º╪▒┘è)","get_report":"╪º┘ä╪¡╪╡┘ê┘ä ╪╣┘ä┘ë ╪º┘ä╪¬┘é╪▒┘è╪▒ ╪º┘ä┘â╪º┘à┘ä","generating_report":"╪¼╪º╪▒┘è ╪Ñ┘å╪┤╪º╪í ╪º┘ä╪¬┘é╪▒┘è╪▒...","evaluating":"╪¼╪º╪▒┘è ╪º┘ä╪¬┘é┘è┘è┘à...","report_title":"╪¬┘é╪▒┘è╪▒ ╪¬┘é┘è┘è┘à ╪º┘ä╪¡╪╢┘ê╪▒ ╪º┘ä╪▒┘é┘à┘è","stage_badge":"╪┤╪º╪▒╪⌐ ╪º┘ä┘à╪▒╪¡┘ä╪⌐","current_diagnosis":"╪º┘ä╪¬╪┤╪«┘è╪╡ ╪º┘ä╪¡╪º┘ä┘è","technical_analysis":"╪¬╪¡┘ä┘è┘ä ╪º┘ä╪¬╪¡╪»┘è ╪º┘ä╪¬┘é┘å┘è","recommendation":"╪º┘ä╪¬┘ê╪╡┘è╪⌐ ╪º┘ä╪ú╪│╪º╪│┘è╪⌐","goal_cta":"┘à┘â╪º┘ä┘à╪⌐ ╪º┘ä╪¡╪½ ╪¿┘å╪º╪í┘ï ╪╣┘ä┘ë ╪º┘ä┘ç╪»┘ü","book_whatsapp":"╪¡╪¼╪▓ ╪╣╪¿╪▒ ┘ê╪º╪¬╪│╪º╪¿","download_pdf":"╪¬┘å╪▓┘è┘ä \/ ╪╖╪¿╪º╪╣╪⌐ ╪º┘ä╪¬┘é╪▒┘è╪▒","evaluate_again":"╪¬┘é┘è┘è┘à ┘à╪│╪º╪▒ ╪ó╪«╪▒","error_generic":"╪¡╪»╪½ ╪«╪╖╪ú ┘à╪º. ┘è╪▒╪¼┘ë ╪º┘ä┘à╪¡╪º┘ê┘ä╪⌐ ┘à╪▒╪⌐ ╪ú╪«╪▒┘ë.","tracks":{"written-content":"┘à╪¡╪¬┘ê┘ë ┘ê╪│╪º╪ª╪╖ ╪º╪¼╪¬┘à╪º╪╣┘è╪⌐ ╪º┘ä┘à┘â╪¬┘ê╪¿ ┘ê╪º┘ä╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪⌐","visual-execution":"╪º┘ä╪¬╪╡┘à┘è┘à ╪º┘ä╪¿╪╡╪▒┘è ┘ê╪Ñ┘å╪¬╪º╪¼ ╪º┘ä┘ü┘è╪»┘è┘ê","seo-research":"╪º┘ä╪¿╪¡╪½ ┘ü┘è SEO ┘ê╪º┘ä┘à╪¡╪¬┘ê┘ë","web-development":"╪¬╪╡┘à┘è┘à ┘à┘ê┘é╪╣ ╪º┘ä┘ê┘è╪¿ ┘ê╪¬╪¡╪│┘è┘å ╪º┘ä╪¬╪¡┘ê┘è┘ä"},"language":"╪º┘ä┘ä╪║╪⌐","english":"English","arabic":"╪º┘ä╪╣╪▒╪¿┘è╪⌐"}},"url":"\/","version":"60e0454682071219fac27933c096ff9e","sharedProps":["errors","name","auth","sidebarOpen"]}</script><div data-server-rendered="true" id="app"><div id="assessment-wizard" class="mx-auto w-full max-w-2xl px-4 py-8" dir="rtl"><div class="mb-6 flex justify-end"><div class="flex items-center gap-2"><span class="text-sm font-medium text-neutral-600 dark:text-neutral-400">╪º┘ä┘ä╪║╪⌐</span><div class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1"><button class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">English</button><button disabled="" class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors bg-primary text-white">╪º┘ä╪╣╪▒╪¿┘è╪⌐</button></div></div></div><div class="mb-6"><div class="flex justify-between text-sm text-neutral-600 dark:text-neutral-400"><span>╪«╪╖┘ê╪⌐<!-- --> <!-- -->1<!-- --> <!-- -->┘à┘å<!-- --> <!-- -->5</span><span>20<!-- -->%</span></div><div class="mt-2 h-2 w-full rounded-full bg-neutral-200 dark:bg-neutral-700"><div class="h-2 rounded-full bg-primary transition-all duration-300" style="width:20%"></div></div></div><div class="space-y-4"><h2 class="text-xl font-semibold">╪º╪«╪¬╪▒ ┘à╪│╪º╪▒ ╪º┘ä╪¬┘é┘è┘è┘à</h2><div class="grid gap-4 sm:grid-cols-2"><button class="rounded-lg border-2 p-4 text-left transition-all hover:shadow-md border-neutral-200 hover:border-neutral-300 dark:border-neutral-700"><h3 class="font-medium">Social Media Written Content &amp; Strategy</h3><p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Evaluate your brand tone, copy effectiveness, and sales copy conversions.</p></button><button class="rounded-lg border-2 p-4 text-left transition-all hover:shadow-md border-neutral-200 hover:border-neutral-300 dark:border-neutral-700"><h3 class="font-medium">Visual Design &amp; Video Production</h3><p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Audit your visual identity, video reels editing quality, and brand consistency.</p></button><button class="rounded-lg border-2 p-4 text-left transition-all hover:shadow-md border-neutral-200 hover:border-neutral-300 dark:border-neutral-700"><h3 class="font-medium">SEO &amp; Search Content Research</h3><p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Analyze organic search visibility, keyword targeting, and authority content.</p></button><button class="rounded-lg border-2 p-4 text-left transition-all hover:shadow-md border-neutral-200 hover:border-neutral-300 dark:border-neutral-700"><h3 class="font-medium">Web Design &amp; Conversion Optimization (CRO)</h3><p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Evaluate website UX/UI speed, mobile responsiveness, and checkout conversion rates.</p></button></div><button disabled="" class="w-full rounded-lg bg-primary px-4 py-2 text-white disabled:opacity-50">╪º┘ä╪¬╪º┘ä┘è</button></div></div><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false" data-react-aria-top-layer="true"></section></div>
+    <script data-inertia-devtools-id type="application/json">"01M2R9FN3WY6D5YXJWHHHC5MXH"</script></body>
+</html>
