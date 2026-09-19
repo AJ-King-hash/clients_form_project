@@ -4,13 +4,15 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "relative w-full rounded-2xl border px-4 py-4 text-sm flex items-start gap-3",
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "text-destructive-foreground [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-foreground/80",
+        default: "glass-card border-white/10 text-white",
+        destructive: "glass-card border-rose-500/30 bg-rose-500/5 text-rose-300",
+        success: "glass-card border-emerald-500/30 bg-emerald-500/5 text-emerald-300",
+        warning: "glass-card border-amber-500/30 bg-amber-500/5 text-amber-300",
+        info: "glass-card border-blue-500/30 bg-blue-500/5 text-blue-300",
       },
     },
     defaultVariants: {
@@ -39,7 +41,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="alert-title"
       className={cn(
-        "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight",
+        "font-semibold text-white",
         className
       )}
       {...props}
@@ -55,7 +57,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
+        "text-slate-400 leading-relaxed",
         className
       )}
       {...props}

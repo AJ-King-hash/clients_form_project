@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssessmentCategory;
+use App\Models\QuestionOption;
 use App\Services\AssessmentDiagnosticService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -17,9 +19,9 @@ class AssessmentController extends Controller
 
     public function wizard(): Response
     {
-        $categories = AssessmentCategory::with(['questions.options' => function ($q) {
-            $q->orderBy('question_number');
-        }])->get()->map(fn ($cat) => [
+        $categories = AssessmentCategory::with([
+            'questions.options' => fn ($query) => $query->orderBy('question_number'),
+        ])->get()->map(fn ($cat) => [
             'id' => $cat->id,
             'slug' => $cat->slug,
             'title' => $cat->title,
@@ -51,45 +53,63 @@ class AssessmentController extends Controller
 
     public function evaluateTeaser(Request $request): JsonResponse
     {
-        $validated = $request->validate([
-            'category_slug' => 'required|string|exists:assessment_categories,slug',
-            'answers' => 'required|array|size:6',
-        ]);
-
-        $category = AssessmentCategory::where('slug', $validated['category_slug'])->first();
-        $teaser = $this->diagnosticService->evaluateTeaser($category, $validated['answers']);
+        [$category, $answers] = $this->validatedAssessmentAnswers($request, 6);
+        $teaser = $this->diagnosticService->evaluateTeaser($category, $answers);
 
         return response()->json($teaser);
     }
 
     public function submit(Request $request): JsonResponse
     {
+        [$category, $answers] = $this->validatedAssessmentAnswers($request, 7);
         $validated = $request->validate([
-            'category_slug' => 'required|string|exists:assessment_categories,slug',
-            'answers' => 'required|array|size:7',
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'business_name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'business_name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
         ]);
-
-        $category = AssessmentCategory::where('slug', $validated['category_slug'])->first();
         $leadData = [
-            'name' => $validated['name'],
-            'phone' => $validated['phone'],
-            'business_name' => $validated['business_name'],
-            'email' => $validated['email'] ?? null,
+            'name' => trim($validated['name']),
+            'phone' => trim($validated['phone']),
+            'business_name' => trim($validated['business_name']),
+            'email' => $validated['email'] ? trim($validated['email']) : null,
         ];
 
         $submission = $this->diagnosticService->calculateAndEvaluate(
             $category,
-            $validated['answers'],
-            $leadData
+            $answers,
+            $leadData,
         );
 
         return response()->json([
             'uuid' => $submission->uuid,
             'report' => $submission->full_report_json,
         ]);
+    }
+
+    /**
+     * @return array{0: AssessmentCategory, 1: array<int, int>}
+     */
+    private function validatedAssessmentAnswers(Request $request, int $answerCount): array
+    {
+        $validated = $request->validate([
+            'category_slug' => ['required', 'string', 'exists:assessment_categories,slug'],
+        ]);
+
+        $category = AssessmentCategory::where('slug', $validated['category_slug'])->firstOrFail();
+        $optionIds = QuestionOption::query()
+            ->whereHas(
+                'question',
+                fn ($query) => $query->where('assessment_category_id', $category->id),
+            )
+            ->pluck('id')
+            ->all();
+
+        $validated = $request->validate([
+            'answers' => ['required', 'array', "size:{$answerCount}", 'distinct'],
+            'answers.*' => ['required', 'integer', Rule::in($optionIds)],
+        ]);
+
+        return [$category, $validated['answers']];
     }
 }

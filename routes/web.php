@@ -12,7 +12,13 @@ Route::get('/', [AssessmentController::class, 'wizard'])->name('home');
 Route::post('/locale', function (Request $request) {
     $request->validate(['locale' => 'required|in:en,ar']);
 
-    return response()->redirectTo("/")->cookie('locale', $request->locale, 525600);
+    $redirect = $request->input('redirect', '/');
+
+    if (! is_string($redirect) || str_starts_with($redirect, '//') || ! str_starts_with($redirect, '/')) {
+        $redirect = '/';
+    }
+
+    return response()->redirectTo($redirect)->cookie('locale', $request->locale, 525600);
 })->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {

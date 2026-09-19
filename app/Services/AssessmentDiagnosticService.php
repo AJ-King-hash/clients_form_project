@@ -7,7 +7,9 @@ use App\Models\AssessmentSubmission;
 use App\Models\DiagnosticRule;
 use App\Models\GoalCta;
 use App\Models\QuestionOption;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class AssessmentDiagnosticService
 {
@@ -16,52 +18,8 @@ class AssessmentDiagnosticService
         array $answers,
         array $leadData
     ): AssessmentSubmission {
-        // 1. Fetch options for Q1-Q6
-        $q1ToQ6Answers = array_slice($answers, 0, 6, true);
-        $options = QuestionOption::whereIn('id', array_values($q1ToQ6Answers))->get();
+        $evaluation = $this->evaluate($category, $answers);
 
-        $totalScore = $options->sum('score_weight');
-        $blueCount = $options->where('color_tag', 'blue')->count();
-
-        // 2. Determine Triggered Tier
-        if ($blueCount >= 3) {
-            $triggeredTier = 4;
-            $rule = DiagnosticRule::where('assessment_category_id', $category->id)
-                ->where('is_special_foundation', true)
-                ->first();
-        } else {
-            $rule = DiagnosticRule::where('assessment_category_id', $category->id)
-                ->where('is_special_foundation', false)
-                ->where('min_score', '<=', $totalScore)
-                ->where('max_score', '>=', $totalScore)
-                ->first();
-
-            $triggeredTier = $rule ? $rule->result_tier : 1;
-        }
-
-        // 3. Process Question 7 Goal CTA
-        $q7OptionId = end($answers);
-        $q7Option = QuestionOption::find($q7OptionId);
-        $goalTag = $q7Option ? $q7Option->color_tag : 'red';
-
-        $goalCta = GoalCta::where('assessment_category_id', $category->id)
-            ->where('color_tag', $goalTag)
-            ->first();
-
-        // 4. Build JSON Snapshot
-        $reportSnapshot = [
-            'category_title' => $category->title,
-            'stage_title' => $rule->stage_title ?? '',
-            'current_diagnosis' => $rule->current_diagnosis ?? '',
-            'technical_analysis' => $rule->technical_analysis ?? '',
-            'recommendation_cta' => $rule->recommendation_cta ?? '',
-            'goal_cta_text' => $goalCta->cta_text ?? '',
-            'score' => $totalScore,
-            'blue_count' => $blueCount,
-            'tier' => $triggeredTier,
-        ];
-
-        // 5. Store AssessmentSubmission
         return AssessmentSubmission::create([
             'uuid' => (string) Str::uuid(),
             'assessment_category_id' => $category->id,
@@ -69,12 +27,22 @@ class AssessmentDiagnosticService
             'lead_phone' => $leadData['phone'],
             'lead_business_name' => $leadData['business_name'],
             'lead_email' => $leadData['email'] ?? null,
-            'total_score' => $totalScore,
-            'blue_answers_count' => $blueCount,
-            'triggered_tier' => $triggeredTier,
-            'selected_goal_tag' => $goalTag,
-            'preliminary_teaser' => $rule->preliminary_teaser ?? '',
-            'full_report_json' => $reportSnapshot,
+            'total_score' => $evaluation['total_score'],
+            'blue_answers_count' => $evaluation['blue_count'],
+            'triggered_tier' => $evaluation['tier'],
+            'selected_goal_tag' => $evaluation['goal_tag'],
+            'preliminary_teaser' => $evaluation['rule']->preliminary_teaser ?? '',
+            'full_report_json' => [
+                'category_title' => $category->title,
+                'stage_title' => $evaluation['rule']->stage_title ?? '',
+                'current_diagnosis' => $evaluation['rule']->current_diagnosis ?? '',
+                'technical_analysis' => $evaluation['rule']->technical_analysis ?? '',
+                'recommendation_cta' => $evaluation['rule']->recommendation_cta ?? '',
+                'goal_cta_text' => $evaluation['goal_cta']->cta_text ?? '',
+                'score' => $evaluation['total_score'],
+                'blue_count' => $evaluation['blue_count'],
+                'tier' => $evaluation['tier'],
+            ],
         ]);
     }
 
@@ -82,29 +50,107 @@ class AssessmentDiagnosticService
         AssessmentCategory $category,
         array $answers
     ): array {
-        $q1ToQ6Answers = array_slice($answers, 0, 6, true);
-        $options = QuestionOption::whereIn('id', array_values($q1ToQ6Answers))->get();
+        $evaluation = $this->evaluate($category, $answers, requireGoal: false);
 
-        $totalScore = $options->sum('score_weight');
-        $blueCount = $options->where('color_tag', 'blue')->count();
+        return [
+            'preliminary_teaser' => $evaluation['rule']->preliminary_teaser ?? '',
+            'stage_title' => $evaluation['rule']->stage_title ?? '',
+            'score' => $evaluation['total_score'],
+            'blue_count' => $evaluation['blue_count'],
+        ];
+    }
 
-        if ($blueCount >= 3) {
-            $rule = DiagnosticRule::where('assessment_category_id', $category->id)
+    /**
+     * @param array<int, int> $answers
+     *
+     * @return array{
+     *     total_score: int,
+     *     blue_count: int,
+     *     tier: int,
+     *     goal_tag: ?string,
+     *     rule: DiagnosticRule,
+     *     goal_cta: ?GoalCta
+     * }
+     */
+    private function evaluate(
+        AssessmentCategory $category,
+        array $answers,
+        bool $requireGoal = true,
+    ): array {
+        $scoringOptions = $this->scoringOptions($category, $answers);
+
+        if ($scoringOptions->count() !== 6) {
+            throw new RuntimeException('Exactly six scoring answers are required.');
+        }
+
+        $totalScore = $scoringOptions->sum('score_weight');
+        $blueCount = $scoringOptions->where('color_tag', 'blue')->count();
+
+        $rule = $blueCount >= 3
+            ? $category->diagnosticRules()
                 ->where('is_special_foundation', true)
-                ->first();
-        } else {
-            $rule = DiagnosticRule::where('assessment_category_id', $category->id)
+                ->first()
+            : $category->diagnosticRules()
                 ->where('is_special_foundation', false)
                 ->where('min_score', '<=', $totalScore)
                 ->where('max_score', '>=', $totalScore)
                 ->first();
+
+        if ($rule === null) {
+            throw new RuntimeException('No diagnostic rule matches the assessment score.');
+        }
+
+        $goalQuestion = $category->questions()
+            ->where('is_goal_question', true)
+            ->with('options')
+            ->first();
+
+        $goalOption = $goalQuestion?->options->firstWhere(
+            'id',
+            $answers[$goalQuestion->id] ?? null,
+        );
+
+        $goalCta = null;
+
+        if ($requireGoal) {
+            if ($goalOption === null) {
+                throw new RuntimeException('A goal answer is required.');
+            }
+
+            $goalCta = $category->goalCtas()
+                ->where('color_tag', $goalOption->color_tag)
+                ->first();
+
+            if ($goalCta === null) {
+                throw new RuntimeException('No goal CTA matches the selected goal.');
+            }
         }
 
         return [
-            'preliminary_teaser' => $rule->preliminary_teaser ?? '',
-            'stage_title' => $rule->stage_title ?? '',
-            'score' => $totalScore,
+            'total_score' => $totalScore,
             'blue_count' => $blueCount,
+            'tier' => $rule->result_tier,
+            'goal_tag' => $goalOption?->color_tag,
+            'rule' => $rule,
+            'goal_cta' => $goalCta,
         ];
+    }
+
+    private function scoringOptions(
+        AssessmentCategory $category,
+        array $answers
+    ): Collection {
+        $questions = $category->questions()
+            ->where('is_goal_question', false)
+            ->orderBy('question_number')
+            ->with('options')
+            ->get(['id']);
+
+        return $questions
+            ->map(fn ($question) => $question->options->firstWhere(
+                'id',
+                $answers[$question->id] ?? null,
+            ))
+            ->filter();
     }
 }
