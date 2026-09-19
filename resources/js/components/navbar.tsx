@@ -1,5 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { Menu, X, ChevronDown, User, LogOut, Lock, UserPlus } from 'lucide-react';
+import { Menu, X, ChevronDown, Lock, UserPlus } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { login, register, dashboard } from '@/routes';
@@ -34,7 +34,6 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
-    const userRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -49,14 +48,7 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
             if (
                 categoriesRef.current &&
                 !categoriesRef.current.contains(event.target as Node) &&
-                userRef.current &&
-                !userRef.current.contains(event.target as Node)
-            ) {
-                // only close if click outside both
-                setActiveDropdown(null);
-            } else if (
-                (categoriesRef.current && !categoriesRef.current.contains(event.target as Node) && activeDropdown === 'categories') ||
-                (userRef.current && !userRef.current.contains(event.target as Node) && activeDropdown === 'user')
+                activeDropdown === 'categories'
             ) {
                 setActiveDropdown(null);
             }
@@ -129,30 +121,16 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
                 )}
                 dir={isRtl ? 'rtl' : 'ltr'}
             >
-                <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+                <nav className="mx-auto max-w-7xl px-4 py-1 sm:px-6 lg:px-8" aria-label="Main navigation">
                     <div className="flex h-16 items-center justify-between">
                         {/* Logo */}
                         <div className="flex items-center space-x-3">
                             <Link href="/" className="flex items-center space-x-2" aria-label="Home">
-                                <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl">
-                                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 opacity-20 blur-lg" />
-                                    <svg
-                                        className="relative h-6 w-6 text-white"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth={2.5}
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0114 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                                        />
-                                    </svg>
-                                </div>
-                                <span className="hidden font-black text-xl sm:block section-gradient-text-1">
-                                    {t(translations, 'brand_name', 'Digital Assessment')}
-                                </span>
+<img
+                                    src="/jamage_img.svg"
+                                    alt={t(translations, 'brand_name', 'Digital Assessment')}
+                                    className="h-32 w-auto"
+                                />
                             </Link>
                         </div>
 
@@ -211,15 +189,17 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
                                                 );
                                             })}
                                         </div>
-                                        <div className="border-t border-white/10 p-3">
-                                            <Link
-                                                href={dashboard()}
-                                                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-200"
-                                            >
-                                                <LayoutDashboard className="h-5 w-5" />
-                                                {t(translations, 'dashboard', 'Dashboard')}
-                                            </Link>
-                                        </div>
+                                        {auth.user && (
+                                            <div className="border-t border-white/10 p-3">
+                                                <Link
+                                                    href={dashboard()}
+                                                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                                                >
+                                                    <LayoutDashboard className="h-5 w-5" />
+                                                    {t(translations, 'dashboard', 'Dashboard')}
+                                                </Link>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
@@ -227,37 +207,13 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
                             {/* Auth Buttons */}
                             <div className="flex items-center gap-2">
                                 {auth.user ? (
-                                    <div className="relative" ref={userRef}>
-                                        <button
-                                            onClick={() => setActiveDropdown(activeDropdown === 'user' ? null : 'user')}
-                                            className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-200"
-                                        >
-                                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-purple-600">
-                                                <User className="h-4 w-4 text-white" />
-                                            </div>
-                                            <span className="hidden sm:block max-w-[120px] truncate">{auth.user.name}</span>
-                                            <ChevronDown className="h-4 w-4" />
-                                        </button>
-
-                                        {activeDropdown === 'user' && (
-                                            <div className="absolute right-0 mt-3 w-48 animate-scale-in glass-card overflow-hidden py-2">
-                                                <Link
-                                                    href={dashboard()}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
-                                                >
-                                                    <LayoutDashboard className="h-4 w-4" />
-                                                    {t(translations, 'dashboard', 'Dashboard')}
-                                                </Link>
-                                                <hr className="my-2 border-white/10" />
-                                                <button
-                                                    className="flex w-full items-center gap-3 px-4 py-2 text-sm text-rose-400 hover:bg-rose-500/10 transition-colors"
-                                                >
-                                                    <LogOut className="h-4 w-4" />
-                                                    {t(translations, 'logout', 'Logout')}
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
+                                    <Link
+                                        href={dashboard()}
+                                        className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                                    >
+                                        <LayoutDashboard className="h-4 w-4" />
+                                        {t(translations, 'dashboard', 'Dashboard')}
+                                    </Link>
                                 ) : (
                                     <>
                                         <Link
@@ -340,21 +296,13 @@ export default function Navbar({ categories, locale, translations }: NavbarProps
                             {/* Auth in Mobile */}
                             <div className="space-y-3">
                                 {auth.user ? (
-                                    <>
-                                        <Link
-                                            href={dashboard()}
-                                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
-                                        >
-                                            <LayoutDashboard className="h-5 w-5" />
-                                            <span>{t(translations, 'dashboard', 'Dashboard')}</span>
-                                        </Link>
-                                        <button
-                                            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-rose-400 hover:bg-rose-500/10 transition-colors"
-                                        >
-                                            <LogOut className="h-5 w-5" />
-                                            <span>{t(translations, 'logout', 'Logout')}</span>
-                                        </button>
-                                    </>
+                                    <Link
+                                        href={dashboard()}
+                                        className="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+                                    >
+                                        <LayoutDashboard className="h-5 w-5" />
+                                        <span>{t(translations, 'dashboard', 'Dashboard')}</span>
+                                    </Link>
                                 ) : (
                                     <>
                                         <Link

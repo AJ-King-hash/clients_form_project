@@ -244,8 +244,8 @@ function ProgressBar({ progress, colorScheme }: { progress: number; colorScheme:
 
 function StepIndicator({ currentStep, totalSteps, colorScheme }: { currentStep: number; totalSteps: number; colorScheme: typeof sectionColors[1] }) {
     return (
-        <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between mb-8 grow">
+            <div className="flex items-center gap-2 w-full justify-between">
                 {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => (
                     <div key={step} className="flex items-center gap-2">
                         <div
@@ -263,7 +263,7 @@ function StepIndicator({ currentStep, totalSteps, colorScheme }: { currentStep: 
                         {step < totalSteps && (
                             <div
                                 className={cn(
-                                    'hidden md:block h-1 w-16 rounded transition-all duration-300',
+                                    'hidden md:block h-1 w-27 rounded transition-all duration-300',
                                     step < currentStep
                                         ? `bg-gradient-to-r ${colorScheme.gradient}`
                                         : 'bg-slate-800/50'

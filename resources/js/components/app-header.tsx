@@ -1,18 +1,9 @@
 import { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
-import { Menu, X, Search, ChevronDown, LayoutDashboard, Folder, BookOpen, User, LogOut, Bell, Settings, Moon, Sun } from 'lucide-react';
-import AppLogo from '@/components/app-logo';
+import { Link } from '@inertiajs/react';
+import { Menu, X, Search, ChevronDown, LayoutDashboard, Folder, BookOpen, User, Bell, Moon, Sun } from 'lucide-react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-    DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -32,9 +23,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
-import { useInitials } from '@/hooks/use-initials';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn, toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
@@ -69,9 +58,6 @@ const activeItemStyles =
     'text-white bg-primary/20';
 
 export function AppHeader({ breadcrumbs = [] }: Props) {
-    const page = usePage();
-    const { auth, flash } = page.props;
-    const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
     const { appearance, resolvedAppearance, updateAppearance } = useAppearance();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -157,7 +143,11 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                         prefetch
                         className="flex items-center space-x-2"
                     >
-                        <AppLogo />
+                        <img
+                            src="/jamage_img.svg"
+                            alt="Home"
+                            className="h-10 w-auto"
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -254,55 +244,6 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                 <p>Notifications</p>
                             </TooltipContent>
                         </Tooltip>
-
-                        {/* User Menu */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    className="size-10 rounded-full p-1"
-                                >
-                                    <Avatar className="size-8 overflow-hidden rounded-full">
-                                        <AvatarImage
-                                            src={auth.user?.avatar}
-                                            alt={auth.user?.name}
-                                        />
-                                        <AvatarFallback className="rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-                                            {getInitials(auth.user?.name ?? '')}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-56 glass-card" align="end">
-                                {auth.user && <UserMenuContent user={auth.user} />}
-                                <DropdownMenuSeparator className="border-white/10" />
-                                <DropdownMenuItem
-                                    asChild
-                                    className="flex items-center gap-2 text-slate-300 hover:text-white"
-                                >
-                                    <Link href={dashboard()} prefetch>
-                                        <LayoutDashboard className="h-4 w-4" />
-                                        Dashboard
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                    asChild
-                                    className="flex items-center gap-2 text-slate-300 hover:text-white"
-                                >
-                                    <Link href={dashboard()}>
-                                        <Settings className="h-4 w-4" />
-                                        Settings
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator className="border-white/10" />
-                                <DropdownMenuItem
-                                    className="flex items-center gap-2 text-rose-400 hover:bg-rose-500/10"
-                                >
-                                    <LogOut className="h-4 w-4" />
-                                    Logout
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
                     </div>
                 </div>
             </header>
